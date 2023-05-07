@@ -57,6 +57,9 @@ main() {
   DOT_TERMUX=~/.termux
   dir_files=~/dir_files
 
+  url_ohmyzsh=https://github.com/ohmyzsh/ohmyzsh.git
+  dir_ohmyzsh=~/.oh-my-zsh
+
   url_autosuggestions=https://github.com/zsh-users/zsh-autosuggestions.git
   dir_autosuggestions=$ZSH/custom/plugins/zsh-autosuggestions
   url_zsh_syntax_highlighting=https://github.com/zsh-users/zsh-syntax-highlighting.git
@@ -84,31 +87,9 @@ main() {
 
   ##############################################################################################################
 
-  # Download packages && update system.
-
-  echo -e "${BLUE}↓ 1 of 8 | Start to download packages and update system ↓${NORMAL}\n" && sleep 3
-
-
-  echo -e "\n${YELLOW}1 of 4 System Update.${NORMAL}\n" && sleep 3
-  echo -e "${GREEN}$( pkg update --yes && pkg upgrade --yes && sleep .2 )\n\n${RED}Done, System update.${NORMAL}"
-
-  echo -e "\n${YELLOW}2 of 4 Install python and lolcat.${NORMAL}\n" && sleep 3
-  echo -e "${GREEN}$( pkg install python --yes && pkg install python-pip --yes && pip install lolcat && sleep .2 )\n\n${RED}Done, Python and lolcat installed.${NORMAL}"
-
-  echo -e "\n${YELLOW}3 of 4 Install git, zsh, figlet, nano.${NORMAL}\n" && sleep 3
-  echo -e "${GREEN}$( pkg install git zsh figlet nano --yes && sleep .2 )\n\n${RED}Done, Git, zsh, figlet, nano installed.${NORMAL}"
-
-  echo -e "\n${YELLOW}4 of 4 Autoremove unused packages.${NORMAL}\n" && sleep 3
-  echo -e "${GREEN}$( pkg autoclean --yes && sleep .2 )\n\n${RED}Done, Autoremove.${NORMAL}"
-
-
-  echo -e "\n↑ Done, Packages downloaded and updated system ↑\n\n\n" | lolcat && sleep 3
-
-  ##############################################################################################################
-
   # If ".termux" existing before this install to do backup file.
 
-  echo -e "${BLUE}↓ 2 of 8 | Backup old data ↓${NORMAL}\n" && sleep 3
+  echo -e "${BLUE}↓ 1 of 7 | Backup old data ↓${NORMAL}\n" && sleep 3
 
   echo -e "${YELLOW}1 of 2 Looking for an existing .termux config...${NORMAL}\n" && sleep 3
   if [ -d "$DOT_TERMUX" ]; then
@@ -132,22 +113,20 @@ main() {
 
   ##############################################################################################################
 
-  echo -e "${BLUE}↓ 3 of 8 | Download and copy required files. ↓${NORMAL}\n" && sleep 3
+  echo -e "${BLUE}↓ 2 of 7 | Download and copy required files. ↓${NORMAL}\n" && sleep 3
+
+  # Download and copy original files to ohmyzsh from ohmyzsh
+
+  echo -e "${YELLOW}1 of 4 ohmyzsh Download and copy.${NORMAL}\n" && sleep 3
+  echo -e "$( git clone $url_ohmyzsh $dir_ohmyzsh )${GREEN}\nDone.\n\n${RED}Done, Downloaded and copied in $ZSH${NORMAL}\n"
+  cp $dir_ohmyzsh/templates/zshrc.zsh-template $ZSHRC
+  echo -e "${RED}Done, Downloaded and copied.${NORMAL}\n"
 
   # Copy required files to ".termux" from anorebel
 
-  echo -e "${YELLOW}1 of 4 .termux Download and copy${NORMAL}\n" && sleep 3
+  echo -e "${YELLOW}2 of 4 .termux Download and copy${NORMAL}\n" && sleep 3
   echo -e "$( git clone $url_dot_termux dir_files --depth 1 )${GREEN}\nDone.${NORMAL}\n"
   echo -e "$( cp -R $dir_dot_termux_files $DOT_TERMUX )${RED}Done, .termux Copied in $dot_termux${NORMAL}\n"
-
-  # Install oh-my-zsh and set a theme
-
-  echo -e "${YELLOW}2 of 4 Installing Oh My Zsh.${NORMAL}\n" && sleep 3
-  if dpkg -s "wget" > /dev/null 2>&1; then
-    sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-  else
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-  fi
 
   # Install autosuggestions for zsh from zsh-users
 
@@ -167,7 +146,7 @@ main() {
 
   # Create ".zshrc" with initial config.
 
-  echo -e "${BLUE}↓ 4 of 8 | Copy template in $ZSHRC ↓${NORMAL}\n" && sleep 3
+  echo -e "${BLUE}↓ 3 of 7 | Copy template in $ZSHRC ↓${NORMAL}\n" && sleep 3
 
   echo -e "${YELLOW}1 of 1 Using the oh-my-zsh template file and adding it to $ZSHRC${NORMAL}\n"
   echo -e "$( cp $ZSH/templates/zshrc.zsh-template $ZSHRC )${GREEN}Done, Oh-my-zsh template adding${NORMAL}\n"
@@ -179,7 +158,7 @@ main() {
 
   # Set default shell Oh-My-Zsh.
 
-  echo -e "${BLUE}↓ 5 of 8 | Start to do zsh default shell ↓${NORMAL}\n" && sleep 3
+  echo -e "${BLUE}↓ 4 of 7 | Start to do zsh default shell ↓${NORMAL}\n" && sleep 3
 
   echo -e "${YELLOW}1 of 1 Making zsh your default shell using 'chsh -s'${NORMAL}\n"
   echo -e "$( chsh -s zsh )${GREEN}Done, Zsh default shell.${NORMAL}\n"
@@ -191,16 +170,16 @@ main() {
 
   # Modify config in ".zshrc".
 
-  echo -e "${BLUE}↓ 6 of 8 | .zshrc Modify ↓${NORMAL}" && sleep 3
+  echo -e "${BLUE}↓ 5 of 7 | .zshrc Modify ↓${NORMAL}" && sleep 3
 
   read -p 'Wanna use Powerlevel10k as theme? [y/n] → ' data;
   if [[ "$data" == [Yy] ]]; then
     echo -e "$( git clone $url_powerlevel10k $dir_powerlevel10k --depth 1 )${GREEN}\nDone.\n"
     echo -e "\n${RED}Adding Powerlevel10k theme, you can change it later to anything in the $ZSHRC${NORMAL}"
-    sed -i 's/ZSH_THEME="robbyrussell"/ZSH_THEME="powerlevel10k/powerlevel10k"/gi' $ZSHRC
+    sed -i 's/ZSH_THEME="robbyrussell"/ZSH_THEME="powerlevel10k\/powerlevel10k"/g' $ZSHRC
   else
     echo -e "\n${RED}Adding the agnoster theme, you can change it later to anything in the $ZSHRC${NORMAL}"
-    sed -i 's/ZSH_THEME="robbyrussell"/ZSH_THEME="agnoster"/gi' $ZSHRC
+    sed -i 's/ZSH_THEME="robbyrussell"/ZSH_THEME="agnoster"/g' $ZSHRC
   fi
 
   sed -i 's/# export UPDATE_ZSH_DAYS=13/ export UPDATE_ZSH_DAYS=1/gi' $ZSHRC
@@ -259,10 +238,10 @@ main() {
 
   # Select colors.
 
-  echo -e "\n${BLUE}↓ 7 of 8 | Change bash styles ↓${NORMAL}\n"
+  echo -e "\n${BLUE}↓ 6 of 7 | Change bash styles ↓${NORMAL}\n"
 
   echo -e "${YELLOW}1 of 2 Choose your color scheme now.${NORMAL}\n" && sleep 3
-  bash $DOT_TERMUX/colors.sh |lolcat
+  bash $DOT_TERMUX/colors.sh | lolcat
   echo -e "\n${GREEN}Done, Color scheme applied."
   echo -e "If you want to change color scheme after, use: bash $DOT_TERMUX/colors.sh${NORMAL}\n"
 
@@ -279,7 +258,7 @@ main() {
 
   # Remove unused repositories after for this install.
 
-  echo -e "${BLUE}↓ 8 of 8 | Remove unused repositories ↓${NORMAL}\n" && sleep 3
+  echo -e "${BLUE}↓ 7 of 7 | Remove unused repositories ↓${NORMAL}\n" && sleep 3
 
   echo -e "${YELLOW}1 of 2 Trying to delete old bash_history.${NORMAL}\n" && sleep 3
   if [ -f "$HOME/.bash_history" ]; then

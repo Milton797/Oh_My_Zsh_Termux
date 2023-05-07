@@ -9,13 +9,16 @@
     - [Download Termux](#download-termux)
     - [Update your servers repository](#update-your-servers-repository)
     - [Create shortcut to access into "storage" path](#create-shortcut-to-access-into-storage-path)
-    - [Use pkg update](#use-pkg-update)
-    - [Install retrieve content](#install-retrieve-content)
-  - [curl](#curl)
-  - [wget](#wget)
-    - [Copy and paste in terminal this line](#copy-and-paste-in-terminal-this-line)
-  - [Using curl](#using-curl)
-  - [Using wget](#using-wget)
+  - [Install dependencies](#install-dependencies)
+    - [Update packages](#update-packages)
+    - [Dependencies](#dependencies)
+    - [Clean packages](#clean-packages)
+  - [Install retrieve content](#install-retrieve-content)
+    - [install curl](#install-curl)
+    - [install wget](#install-wget)
+  - [Run configuration installer](#run-configuration-installer)
+    - [Use with curl](#use-with-curl)
+    - [Use with wget](#use-with-wget)
   - [Special Thanks To](#special-thanks-to)
 
 ## Requirements
@@ -44,39 +47,54 @@ termux-change-repo
 termux-setup-storage
 ```
 
-### Use pkg update
+## Install dependencies
+
+### Update packages
 
 ```bash
-pkg update --yes
+pkg update --yes && pkg upgrade --yes
 ```
 
-### Install retrieve content
+### Dependencies
+
+```bash
+pkg install git zsh figlet nano which python python-pip --yes && pip install lolcat
+```
+
+### Clean packages
+
+```bash
+pkg clean --yes && pkg autoclean --yes
+```
+
+## Install retrieve content
 
 > **Note**
 >
 > - Usually curl is installed by default on last versions of termux
+> - Just need to install one
 
-## curl
+### install curl
 
 ```bash
 pkg install curl --yes
 ```
 
-## wget
+### install wget
 
 ```bash
 pkg install wget --yes
 ```
 
-### Copy and paste in terminal this line
+## Run configuration installer
 
-## Using curl
+### Use with curl
 
 ```bash
 bash -c "$( curl -fsSL https://raw.githubusercontent.com/Milton797/Oh_My_Zsh_Termux/master/install.sh )"
 ```
 
-## Using wget
+### Use with wget
 
 ```bash
 bash -c "$( wget -O- https://raw.githubusercontent.com/Milton797/Oh_My_Zsh_Termux/master/install.sh )"
