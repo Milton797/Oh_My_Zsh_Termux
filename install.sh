@@ -134,20 +134,20 @@ main() {
 
   echo -e "${BLUE}↓ 3 of 8 | Download and copy required files. ↓${NORMAL}\n" && sleep 3
 
-  # Download and copy original files to oh-my-zsh from robbyrussell
+  # Copy required files to ".termux" from anorebel
 
-  echo -e "${YELLOW}1 of 4 Installing Oh My Zsh.${NORMAL}\n" && sleep 3
+  echo -e "${YELLOW}1 of 4 .termux Download and copy${NORMAL}\n" && sleep 3
+  echo -e "$( git clone $url_dot_termux dir_files --depth 1 )${GREEN}\nDone.${NORMAL}\n"
+  echo -e "$( cp -R $dir_dot_termux_files $DOT_TERMUX )${RED}Done, .termux Copied in $dot_termux${NORMAL}\n"
+
+  # Install oh-my-zsh and set a theme
+
+  echo -e "${YELLOW}2 of 4 Installing Oh My Zsh.${NORMAL}\n" && sleep 3
   if dpkg -s "wget" > /dev/null 2>&1; then
     sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
   else
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
   fi
-
-  # Copy required files to ".termux" from anorebel
-
-  echo -e "${YELLOW}2 of 4 .termux Download and copy${NORMAL}\n" && sleep 3
-  echo -e "$( git clone $url_dot_termux dir_files --depth 1 )${GREEN}\nDone.${NORMAL}\n"
-  echo -e "$( cp -R $dir_dot_termux_files $DOT_TERMUX )${RED}Done, .termux Copied in $dot_termux${NORMAL}\n"
 
   # Install autosuggestions for zsh from zsh-users
 

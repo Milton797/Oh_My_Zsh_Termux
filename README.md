@@ -10,10 +10,12 @@
     - [Update your servers repository](#update-your-servers-repository)
     - [Create shortcut to access into "storage" path](#create-shortcut-to-access-into-storage-path)
     - [Use pkg update](#use-pkg-update)
-    - [Install wget or curl](#install-wget-or-curl)
+    - [Install retrieve content](#install-retrieve-content)
+  - [curl](#curl)
+  - [wget](#wget)
     - [Copy and paste in terminal this line](#copy-and-paste-in-terminal-this-line)
-  - [Using wget](#using-wget)
   - [Using curl](#using-curl)
+  - [Using wget](#using-wget)
   - [Special Thanks To](#special-thanks-to)
 
 ## Requirements
@@ -48,28 +50,36 @@ termux-setup-storage
 pkg update --yes
 ```
 
-### Install wget or curl
+### Install retrieve content
 
-```bash
-pkg install wget --yes
-```
+> **Note**
+>
+> - Usually curl is installed by default on last versions of termux
+
+## curl
 
 ```bash
 pkg install curl --yes
 ```
 
-### Copy and paste in terminal this line
-
-## Using wget
+## wget
 
 ```bash
-bash -c "$( wget -O- https://raw.githubusercontent.com/Milton797/Oh_My_Zsh_Termux/master/install.sh )"
+pkg install wget --yes
 ```
+
+### Copy and paste in terminal this line
 
 ## Using curl
 
 ```bash
 bash -c "$( curl -fsSL https://raw.githubusercontent.com/Milton797/Oh_My_Zsh_Termux/master/install.sh )"
+```
+
+## Using wget
+
+```bash
+bash -c "$( wget -O- https://raw.githubusercontent.com/Milton797/Oh_My_Zsh_Termux/master/install.sh )"
 ```
 
 ## Special Thanks To
