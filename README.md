@@ -63,7 +63,7 @@ pkg install curl --yes
 ## Using wget
 
 ```bash
-bash -c "$( wget https://raw.githubusercontent.com/Milton797/Oh_My_Zsh_Termux/master/install.sh -O - )"
+bash -c "$( wget -O- https://raw.githubusercontent.com/Milton797/Oh_My_Zsh_Termux/master/install.sh )"
 ```
 
 ## Using curl

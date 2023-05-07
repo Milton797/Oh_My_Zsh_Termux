@@ -99,7 +99,7 @@ main() {
   echo -e "${GREEN}$( pkg install git zsh figlet nano --yes && sleep .2 )\n\n${RED}Done, Git, zsh, figlet, nano installed.${NORMAL}"
 
   echo -e "\n${YELLOW}4 of 4 Autoremove unused packages.${NORMAL}\n" && sleep 3
-  echo -e "${GREEN}$( pkg autoremove --yes && sleep .2 )\n\n${RED}Done, Autoremove.${NORMAL}"
+  echo -e "${GREEN}$( pkg autoclean --yes && sleep .2 )\n\n${RED}Done, Autoremove.${NORMAL}"
 
 
   echo -e "\n↑ Done, Packages downloaded and updated system ↑\n\n\n" | lolcat && sleep 3
@@ -137,7 +137,11 @@ main() {
   # Download and copy original files to oh-my-zsh from robbyrussell
 
   echo -e "${YELLOW}1 of 4 Installing Oh My Zsh.${NORMAL}\n" && sleep 3
-  sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+  if dpkg -s "wget" > /dev/null 2>&1; then
+    sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+  else
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+  fi
 
   # Copy required files to ".termux" from anorebel
 
