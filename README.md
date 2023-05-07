@@ -10,8 +10,10 @@
     - [Update your servers repository](#update-your-servers-repository)
     - [Create shortcut to access into "storage" path](#create-shortcut-to-access-into-storage-path)
     - [Use pkg update](#use-pkg-update)
-    - [Install wget](#install-wget)
+    - [Install wget or curl](#install-wget-or-curl)
     - [Copy and paste in terminal this line](#copy-and-paste-in-terminal-this-line)
+  - [Using wget](#using-wget)
+  - [Using curl](#using-curl)
   - [Special Thanks To](#special-thanks-to)
 
 ## Requirements
@@ -46,16 +48,28 @@ termux-setup-storage
 pkg update --yes
 ```
 
-### Install wget
+### Install wget or curl
 
 ```bash
 pkg install wget --yes
 ```
 
+```bash
+pkg install curl --yes
+```
+
 ### Copy and paste in terminal this line
+
+## Using wget
 
 ```bash
 bash -c "$( wget https://raw.githubusercontent.com/Milton797/Oh_My_Zsh_Termux/master/install.sh -O - )"
+```
+
+## Using curl
+
+```bash
+bash -c "$( curl -fsSL https://raw.githubusercontent.com/Milton797/Oh_My_Zsh_Termux/master/install.sh )"
 ```
 
 ## Special Thanks To

@@ -57,7 +57,6 @@ main() {
   DOT_TERMUX=~/.termux
   dir_files=~/dir_files
 
-  url_zsh=https://github.com/robbyrussell/oh-my-zsh.git
   url_autosuggestions=https://github.com/zsh-users/zsh-autosuggestions.git
   dir_autosuggestions=$ZSH/custom/plugins/zsh-autosuggestions
   url_zsh_syntax_highlighting=https://github.com/zsh-users/zsh-syntax-highlighting.git
@@ -94,7 +93,7 @@ main() {
   echo -e "${GREEN}$( pkg update --yes && pkg upgrade --yes && sleep .2 )\n\n${RED}Done, System update.${NORMAL}"
 
   echo -e "\n${YELLOW}2 of 4 Install python and lolcat.${NORMAL}\n" && sleep 3
-  echo -e "${GREEN}$( pkg install python --yes && pip install lolcat && sleep .2 )\n\n${RED}Done, Python and lolcat installed.${NORMAL}"
+  echo -e "${GREEN}$( pkg install python --yes && pkg install python-pip --yes && pip install lolcat && sleep .2 )\n\n${RED}Done, Python and lolcat installed.${NORMAL}"
 
   echo -e "\n${YELLOW}3 of 4 Install git, zsh, figlet, nano.${NORMAL}\n" && sleep 3
   echo -e "${GREEN}$( pkg install git zsh figlet nano --yes && sleep .2 )\n\n${RED}Done, Git, zsh, figlet, nano installed.${NORMAL}"
@@ -137,8 +136,8 @@ main() {
 
   # Download and copy original files to oh-my-zsh from robbyrussell
 
-  echo -e "${YELLOW}1 of 4 .oh-my-zsh Download and copy.${NORMAL}\n" && sleep 3
-  echo -e "$( git clone $url_zsh $ZSH --depth 1 )${GREEN}\nDone.\n\n${RED}Done, Downloaded and copied in $ZSH${NORMAL}\n"
+  echo -e "${YELLOW}1 of 4 Installing Oh My Zsh.${NORMAL}\n" && sleep 3
+  sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
   # Copy required files to ".termux" from anorebel
 
@@ -156,7 +155,7 @@ main() {
 
   echo -e "${YELLOW}4 of 4 /.zsh-syntax-highlighting Download and copy.${NORMAL}\n" && sleep 3
   echo -e "$( git clone $url_zsh_syntax_highlighting $dir_zsh_syntax_highlighting --depth 1 )${GREEN}\nDone.\n"
-  echo -e "${RED}Done, Downloaded and copied in $dir_zsh-syntax-highlighting${NORMAL}\n"
+  echo -e "${RED}Done, Downloaded and copied in $dir_zsh_syntax_highlighting${NORMAL}\n"
 
   echo -e "↑ Done, Required files copied ↑\n\n\n" | lolcat && sleep 3
 
@@ -191,7 +190,6 @@ main() {
   echo -e "${BLUE}↓ 6 of 8 | .zshrc Modify ↓${NORMAL}" && sleep 3
 
   read -p 'Wanna use Powerlevel10k as theme? [y/n] → ' data;
-  echo -e "${YELLOW}Wanna use Powerlevel10k as theme?.${NORMAL}\n" && sleep 3
   if [[ "$data" == [Yy] ]]; then
     echo -e "$( git clone $url_powerlevel10k $dir_powerlevel10k --depth 1 )${GREEN}\nDone.\n"
     echo -e "\n${RED}Adding Powerlevel10k theme, you can change it later to anything in the $ZSHRC${NORMAL}"
